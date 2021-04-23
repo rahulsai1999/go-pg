@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  db:
+    image: "bitnami/postgresql"
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: "${DB_USERNAME}"
+      POSTGRES_DB: "${DB_DATABASE}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
+    volumes:
+      - postgresql_data:/bitnami/postgresql
+    ports:
+      - 5432:5432
+  server:
+    build: .
+    ports:
+      - 3000:3000
+volumes:
+  postgresql_data:
+    driver: local
